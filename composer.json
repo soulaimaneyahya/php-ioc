@@ -1,0 +1,25 @@
+{
+    "name": "soulaimaneyh/php-ioc",
+    "description": "PHP Ioc is a lightweight dependency injection container",
+    "type": "project",
+    "keywords": ["project", "php-ioc"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Soulaimane yahya",
+            "email": "soulaimaneyh07@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "app"
+        }
+    },
+    "require": {
+        "php": "^8.1",
+        "symfony/var-dumper": "^5.0"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.7"
+    }
+}
