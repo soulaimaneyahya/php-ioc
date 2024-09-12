@@ -1,33 +1,44 @@
 {
-    "name": "soulaimaneyh/php-ioc",
-    "description": "PHP Ioc is a lightweight dependency injection container",
-    "type": "project",
-    "keywords": [
-        "php-ioc"
-    ],
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Soulaimane yahya",
-            "email": "soulaimaneyh07@gmail.com"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "App\\": "app"
-        }
-    },
-    "scripts": {
-      "php-psr": [
-        "find app -type f -name \"*.php\" -print0 | xargs -0 -n1 php -lf",
-        "./vendor/bin/phpcs --standard=PSR2 --encoding=utf-8 --extensions=php app/*"
-      ]
-    },
-    "require": {
-        "php": "^8.2",
-        "symfony/var-dumper": "^5.0"
-    },
-    "require-dev": {
-        "squizlabs/php_codesniffer": "^3.7"
+  "name": "soulaimaneyh/php-ioc",
+  "description": "PHP Ioc is a lightweight dependency injection container",
+  "type": "project",
+  "keywords": [
+    "php-ioc"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Soulaimane yahya",
+      "email": "soulaimaneyh07@gmail.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "App\\": "app"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit tests/Feature",
+    "php-psr": [
+      "find app -type f -name \"*.php\" -print0 | xargs -0 -n1 php -lf",
+      "./vendor/bin/phpcs --standard=PSR2 --encoding=utf-8 --extensions=php app/*"
+    ]
+  },
+  "require": {
+    "php": "^8.2",
+    "symfony/var-dumper": "^6.2",
+    "phpunit/phpunit": "9.6.x-dev"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.7"
+  },
+  "support": {
+    "issues": "https://github.com/soulaimaneyahya/php-ioc/issues",
+    "source": "https://github.com/soulaimaneyahya/php-ioc"
+  }
 }

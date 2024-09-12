@@ -28,15 +28,17 @@ class ConnectionService implements ServiceInterface
     public function connect(): PDO
     {
         try {
-            $this->pdo = new PDO(
-                "mysql:host={$this->dbConfig['host']};dbname={$this->dbConfig['dbname']}",
-                $this->dbConfig['username'],
-                $this->dbConfig['password']
-            );
-
-            // Set PDO options for error handling and security
-            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            if (is_null($this->pdo)) {
+                $this->pdo = new PDO(
+                    "mysql:host={$this->dbConfig['host']};dbname={$this->dbConfig['dbname']}",
+                    $this->dbConfig['username'],
+                    $this->dbConfig['password']
+                );
+    
+                // Set PDO options for error handling and security
+                $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            }
 
             return $this->pdo;
         } catch (\PDOException $e) {
