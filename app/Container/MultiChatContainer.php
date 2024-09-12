@@ -23,18 +23,17 @@ class MultiChatContainer
     }
 
     /**
-     * Get the singleton instance of the container.
+     * Get the globally available instance of the container.
      *
      * @return static
      */
     public static function getInstance(): static
     {
-        if (self::$instance === null) {
-            // new static() refers to the current class, not the parent container
-            self::$instance = new static();
+        if (is_null(static::$instance)) {
+            static::$instance = new static;
         }
 
-        return self::$instance;
+        return static::$instance;
     }
 
     /**
