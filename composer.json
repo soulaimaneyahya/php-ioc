@@ -17,6 +17,12 @@
             "App\\": "app"
         }
     },
+    "scripts": {
+      "php-psr": [
+        "find app -type f -name \"*.php\" -print0 | xargs -0 -n1 php -lf",
+        "./vendor/bin/phpcs --standard=PSR2 --encoding=utf-8 --extensions=php app/*"
+      ]
+    },
     "require": {
         "php": "^8.2",
         "symfony/var-dumper": "^5.0"

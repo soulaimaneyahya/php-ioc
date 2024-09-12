@@ -1,5 +1,7 @@
 <?php
 
+use Exception;
+use PDOException;
 use App\Providers\MultiChatServiceProvider;
 
 /*
@@ -14,22 +16,41 @@ error_reporting(E_ALL);
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$multiChatServiceProvider = MultiChatServiceProvider::getInstance();
+$app = MultiChatServiceProvider::getInstance();
 
 try {
-    $multiChatServiceProvider->registerServices();
+    $app->registerSharedServices();
 
-    /**
-     * Resolve connection service
-     */
-    $multiChatServiceProvider->resolve('connection');
-    dump("success connected to db");
+    // Testing methods
+    dump("Container after registering shared connection service:");
+    dump($app);
 
-    $multiChatServiceProvider->scanDirectory(__DIR__ . '/app/Services/');
+    // Resolve connection service
+    $connection = $app->resolve('connection');
+    dump("Resolved connection service:");
+    dump($connection);
 
-    $categoryService = $multiChatServiceProvider->resolve('CategoryService');
-    $productsService = $multiChatServiceProvider->resolve('ProductsService');
+    // Check if connection is registered
+    $hasConnection = $app->has('connection');
+    dump("Connection registered?");
+    dump($hasConnection);
 
+    // Scan directory for services
+    $app->scanDirectory(__DIR__ . '/app/Services/');
+
+    dump("Container after scanning services directory:");
+    dump($app);
+
+    // Resolve scanned services
+    $categoryService = $app->resolve('CategoryService');
+    dump("Resolved CategoryService:");
+    dump($categoryService);
+
+    $productsService = $app->resolve('ProductsService');
+    dump("Resolved ProductsService:");
+    dump($productsService);
 } catch (PDOException $e) {
     dump($e->getMessage());
+} catch (Exception $e) {
+    dump("Error: " . $e->getMessage());
 }
