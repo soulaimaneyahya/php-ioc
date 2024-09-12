@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use PDO;
+use App\Services\ServiceInterface;
 use App\Connection\ConnectionService;
 use App\Container\MultiChatContainer;
 
@@ -25,10 +25,10 @@ class MultiChatServiceProvider extends MultiChatContainer
         /**
          * Register connection service as singleton
          */
-        $this->registerShared('connection', function (): PDO {
+        $this->registerShared('connection', function (): ServiceInterface {
             $connectionService = new ConnectionService($this->db);
 
-            return $connectionService->connect();
+            return $connectionService;
         });
     }
 }

@@ -25,15 +25,35 @@ try {
     dump("Container after registering shared connection service:");
     dump($app);
 
-    // Resolve connection service
-    $connection = $app->resolve('connection');
-    dump("Resolved connection service:");
-    dump($connection);
+    // Resolve connection service twice
+    $connection1 = $app->resolve('connection');
+    $connection2 = $app->resolve('connection');
+
+    dump("Resolved connection service (first instance):");
+    dump($connection1);
+
+    dump("Resolved connection service (second instance):");
+    dump($connection2);
 
     // Check if connection is registered
     $hasConnection = $app->has('connection');
     dump("Connection registered?");
     dump($hasConnection);
+
+    // Check if both instances are the same by comparing unique IDs
+    $id1 = $connection1->getConnectionId();
+    $id2 = $connection2->getConnectionId();
+    
+    dump("Unique ID of the first connection:");
+    dump($id1);
+
+    dump("Unique ID of the second connection:");
+    dump($id2);
+
+    // Check if both IDs are the same
+    $areSame = $id1 === $id2;
+    dump("Connection instances are the same?");
+    dump($areSame ? 'Yes' : 'No');
 
     // Scan directory for services
     $app->scanDirectory(__DIR__ . '/app/Services/');
